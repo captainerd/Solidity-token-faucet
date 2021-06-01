@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>Dildo coin Faucet!</title>
+
+  <meta name="robots" content="noindex">
+
+
+
+  
+  
+
+  <style class="INLINE_PEN_STYLESHEET_ID">
+    html,
+body {
+    margin: 0;
+    padding: 0;
+ 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+.glow-on-hover {
+    
+    width: 220px;
+    height: 50px;
+ 
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    animation: glowing 20s linear infinite;
+    position: relative;
+    z-index: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(15px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: rgb(153, 146, 146)
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+
+.divtitle {
+    display: inline-block;
+    position: absolute;
+ 
+   
+  
+    top: 10px;
+}
+
+  </style>
+
+  
+
+</head>
+
+<body>
+    <script type="text/javascript" src="./src/jquery.min.js"></script>
+    <script type="text/javascript" src="./src/web3.min.js"></script>
+    <div class="divtitle" > 
+    <p style="font-size: xx-large; color: white">Welcome to 🍆 coin faucet, Get 30 Free dildos!</p>
+    <p id="errormeta" style="font-size: xx-large; color: rgb(250, 108, 42)"> </p>
+    <p style="font-size: medium; color: white">How to use: Connect with a browser and metamask to binance smart chain or visit http://dildocoin.eu/faucet from TrustWallet dapps, then change ethereum to binance icon in the top right corner. then the button bellow. <br/>* Only 1 airdrop per address</p>
+  
+    <div style="padding: 4px; font-size: medium; color: white">  Ðildo In faucet Tank: <div style="display: inline-block; font-size: medium; color: rgb(31, 236, 41)" id="intank">0</div></div>
+    <div style="padding: 4px; font-size: medium; color: white">  Ðildo In your wallet: <div style="display: inline-block; font-size: medium; color: rgb(31, 236, 41)" id="inwallet">0</div></div>
+    <div style="display: inline-block; margin-top: 30px;">
+   
+
+        <button  id="buttonget" onClick="javascript:getCoins();" class="glow-on-hover">GIVE ME DILDOS</button>
+      
+      
+      
+      
+       </div>
+</div>
+
+  
+  
+  <script>
+
+var abi = JSON.parse( '[ { "inputs": [ { "internalType": "address", "name": "_tokenInstance", "type": "address" } ], "stateMutability": "nonpayable", "type": "constructor" }, { "inputs": [ { "internalType": "address", "name": "_address", "type": "address" } ], "name": "allowedToWithdraw", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "requestTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "tokenAmount", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "tokenInstance", "outputs": [ { "internalType": "contract IBEP20", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "waitTime", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" } ]' );
+var web3 = new Web3(new Web3.providers.HttpProvider('https://bsc-dataseed1.defibit.io/'));
+
+window.addEventListener('load', async () => {
+    // Modern dapp browsers...
+   
+    if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        window.contract = new web3.eth.Contract(abi, '0x94D0358B6469D00c27333D9ba03EA0d6DdE8f0A9');
+
+  //  document.getElementById('intank').innerText = getBanaceof('0x51da276a2fc6c79570cdbd39ec51921bef4a02f2', '0x94D0358B6469D00c27333D9ba03EA0d6DdE8f0A9');
+   getBanaceof('0x51da276a2fc6c79570cdbd39ec51921bef4a02f2', '0x94D0358B6469D00c27333D9ba03EA0d6DdE8f0A9','intank')
+        try {
+            // Request account access if needed
+            await ethereum.enable();
+
+         
+            await	web3.eth.requestAccounts().then((s) => {
+                window.accs = s[0];
+      
+                getBanaceof('0x51da276a2fc6c79570cdbd39ec51921bef4a02f2',  window.accs,'inwallet')
+
+        })
+        } catch (error) {
+        
+            // User denied account access...
+        }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+    
+		  window.contract = new web3.eth.Contract(abi, '0x94D0358B6469D00c27333D9ba03EA0d6DdE8f0A9');
+          getBanaceof('0x51da276a2fc6c79570cdbd39ec51921bef4a02f2', '0x94D0358B6469D00c27333D9ba03EA0d6DdE8f0A9','intank')
+        // Acccounts always exposed
+
+        try {
+        
+		await	web3.eth.requestAccounts().then((s) => {
+            window.accs  = s[0];
+   
+            getBanaceof('0x51da276a2fc6c79570cdbd39ec51921bef4a02f2',  window.accs,'inwallet')
+          
+            getBanaceof('0x51da276a2fc6c79570cdbd39ec51921bef4a02f2', '0x94D0358B6469D00c27333D9ba03EA0d6DdE8f0A9','intank')
+        }) 
+
+    } catch (error) {
+  
+        document.getElementById('errormeta').innerText = 'ERROR: Non-wallet on browser detected. You should visit with MetaMask or TrustWallet! '
+        document.getElementById('buttonget').disabled = true;
+        document.getElementById('buttonget').style.display = 'none';
+    }
+
+
+
+    }
+
+
+
+    // Non-dapp browsers...
+    else  {
+        document.getElementById('errormeta').innerText = 'ERROR: Non-wallet on browser detected. You should visit with MetaMask or TrustWallet!'
+        document.getElementById('buttonget').disabled = true;
+        document.getElementById('buttonget').style.display = 'none';
+       
+    }
+
+});
+async function getCoins() {
+
+  //  myContract.transfer(otherAddress, aNumber, { from: myAccount });
+   
+ await window.contract.methods.requestTokens().send({ from: window.accs  }).then(function(result){
+    alert('Yaaay!!! You just got 30 dildos! enjoy them!')
+}).catch(function(err) {
+     
+
+    alert('Error: Maybe you already toke some dildos?')
+});
+  
+ }
+
+ async function getBanaceof(tokenAddress, walletAddress, printid) {
+ 
+
+// The minimum ABI to get ERC20 Token balance
+let minABI = [
+  // balanceOf
+  {
+    "constant":true,
+    "inputs":[{"name":"_owner","type":"address"}],
+    "name":"balanceOf",
+    "outputs":[{"name":"balance","type":"uint256"}],
+    "type":"function"
+  },
+  // decimals
+  {
+    "constant":true,
+    "inputs":[],
+    "name":"decimals",
+    "outputs":[{"name":"","type":"uint8"}],
+    "type":"function"
+  }
+];
+
+// Get ERC20 Token contract instance
+let contract = new web3.eth.Contract(minABI, tokenAddress);
+
+// Call balanceOf function
+await contract.methods.balanceOf(walletAddress).call((error, balance) => {
+  // Get decimals
+  let price = formatBEP20(balance, ' Ð');
+ 
+ 
+  document.getElementById(printid).innerText = price
+});
+ }
+
+
+ function formatBEP20(price, symbol) {
+
+ var formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+
+  // These options are needed to round to whole numbers if that's what you want.
+  //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+  //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
+price = formatter.format(price / (10 ** 8));
+ 
+return price.replace('$', '') + symbol
+
+ }
+
+    </script>
+</body>
+
+</html>
